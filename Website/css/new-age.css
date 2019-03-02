@@ -252,7 +252,7 @@ section.features .section-heading p {
 
 section.features .device-container,
 section.features .feature-item {
-  max-width: 325px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -260,7 +260,7 @@ section.features .device-container {
   margin-bottom: 100px;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 100%) {
   section.features .device-container {
     margin-bottom: 0;
   }
