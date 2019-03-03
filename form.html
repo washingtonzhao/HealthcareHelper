@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" type="text/css" href = "./format.css" media="all">
 <body>
-
-<h2>HTML Forms</h2>
-
-<form action="http://127.0.0.1:5000/scraper">
-  Query:<br>
-  <input type="text" name="query" value="blood test">
-  <br>
-  Zipcode:<br>
-  <input type="text" name="zipcode" value="91125">
-  <br>
-  Radius in Miles:<br>
-  <input type="text" name="radius" value="5">
-  <br><br>
-  <input type="submit" value="Submit">
-</form> 
-
-<p>If you click the "Submit" button, the form-data will be sent to a page called "http://127.0.0.1:5000/scraper".</p>
-
+<div class="container">
+  <form id="contact" action="http://127.0.0.1:5000/scraper" method="post">
+    <center><h3>Medical Service Locator</h3></center>
+    <fieldset>
+      <input placeholder="Query" type="text" value="blood test" tabindex="1" required autofocus>
+    </fieldset>
+    <fieldset>
+      <input placeholder="Zipcode" type="text" value="91125" tabindex="2" required>
+    </fieldset>
+    <fieldset>
+      <input placeholder="Radius" type="text" value="5" tabindex="3" required>
+    </fieldset>
+    <fieldset>
+      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+    </fieldset>
+  </form>
+</div>
 </body>
 </html>
