@@ -1,5 +1,6 @@
 from flask import jsonify, json
 from mapsGet import getCoords
+from uber_data_helper import getData
 
 
 import mechanicalsoup
@@ -51,6 +52,7 @@ def scrape(searchQuery, zipCode, radius):
 	    addressList = []
 	    hospList = []
 	    coordsList = []
+	    uberList = []
 
 	    for price in prices:
 	        priceList.append(price.text.strip("Price charged \n"))
@@ -62,16 +64,20 @@ def scrape(searchQuery, zipCode, radius):
 	    for hosp in hospName:
 	    	hospList.append(hosp.text.strip())
 
+	    for coords in coordsList:
+	    	uberList.append(getData(coords[0], coords[1]))
+
+
 
 	    i = 0
 	    outputDict = {}
 	    option = "option"
 	    while i < len(priceList):
-	    	outputDict[option + str(i+1)] = [hospList[i], addressList[i], coordsList[i], priceList[i]]
+	    	outputDict[option + str(i+1)] = [hospList[i], addressList[i], coordsList[i], priceList[i], uberList[i]]
 	    	i +=1
 
 	    return outputDict
 
 
 	else:
-	    return "Sorry, there were no reported results in our database."
+	    return {}
