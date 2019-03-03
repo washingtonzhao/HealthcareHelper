@@ -7,9 +7,28 @@
        /* Set the size of the div element that contains the map */
       #map {
         height: 100vh;  /* The height is 400 pixels */
-        width: 75%;  /* The width is the width of the web page */
+        width: 100%;  /* The width is the width of the web page */
         float: right;
        }
+       #column1 {
+        float: left;
+        width: 25%;
+        max-height: 100vh;
+         }
+        #column2 {
+            float: right;
+            width: 75%;
+        }
+        .button{
+            width: 100%;
+            height: 150px;
+            background-color: #ffffff;
+
+        }
+
+
+
+
     </style>
   </head>
   <body>
@@ -17,12 +36,18 @@
     <!--The div element for the map -->
     <div class = "row">
         
-        <div  class = "column">
-            <button>Button</button>
-            <p>asdfsdfs</p>
+        <div  id = "column1">
+            <button class = "button">Hospital 1</button>
+            <button class = "button">Hospital 2</button>
+            <button class = "button">Hospital 3</button>
+            <button class = "button">Hospital 4</button>
+            <button class = "button">Hospital 5</button>
+            <button class = "button">Hospital 6</button>
+
+
         </div>
 
-        <div  class = "column">
+        <div  id = "column2">
             <div id="map"></div>
         </div>
         </div>
@@ -37,6 +62,36 @@ function initMap() {
       document.getElementById('map'), {zoom: 4, center: uluru});
   // The marker, positioned at Uluru
   var marker = new google.maps.Marker({position: uluru, map: map});
+
+  var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+      'sandstone rock formation in the southern part of the '+
+      'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+      'south west of the nearest large town, Alice Springs; 450&#160;km '+
+      '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+      'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+      'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+      'Aboriginal people of the area. It has many springs, waterholes, '+
+      'rock caves and ancient paintings. Uluru is listed as a World '+
+      'Heritage Site.</p>'+
+      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+      '(last visited June 22, 2009).</p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+
 }
     </script>
     <!--Load the API from the specified URL
