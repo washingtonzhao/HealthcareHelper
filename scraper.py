@@ -1,9 +1,6 @@
 from flask import jsonify, json
-
-import mechanicalsoup
-from bs4 import BeautifulSoup
-import urllib3
-import certifi
+from bs4 import BeautifulSoup, NavigableString
+import requests
 
 def scrape(searchQuery, zipCode, radius):
 	# 	query = request.form["query"]
@@ -15,56 +12,57 @@ def scrape(searchQuery, zipCode, radius):
 	# zipCode = int(input("What is your zipcode?\n"))
 	# radius = int(input("What mile radius? (5,10,25,50,100,500)\n"))
 
-	browser = mechanicalsoup.StatefulBrowser()
-
-	browser.open("https://clearhealthcosts.com")
-
-	browser.select_form('form[action="/search"]')
-
-	browser["query"] = searchQuery
-	browser["zip_code"] = zipCode
-	browser["radius"] = radius
-
-	##browser.launch_browser()
-
-	response = browser.submit_selected()
-
-	##print(browser.get_url())
-
-	http = urllib3.PoolManager(cert_reqs ='CERT_REQUIRED',ca_certs = certifi.where())
-	response = http.request('GET', browser.get_url())
-	soup = BeautifulSoup(response.data,'lxml')
-
-	results = soup.find('span', 'ui orange circular label')
+	###browser = mechanicalsoup.StatefulBrowser()
 
 
-	numResults = int(results.text.strip())
-	##print(numResults)
+def parser(search, zipCode, radius):
+    url = 'https://clearhealthcosts.com/search/?query='
+    response = requests.get(f"{url}{search}&zip_code={zipCode}&radius={radius}&submit=")
+    soup = BeautifulSoup(response.text, 'lxml')
+    results = soup.find('span', 'ui orange circular label')
 
-	if numResults > 0: 
-	    prices = soup.findAll('div',attrs={'class','price-badge price-charged'})
-	    addresses = soup.findAll('span', attrs={'itemprop', 'address'})
-	    priceList = []
-	    addressList = []
+    numResults = int(results.text.strip())
+    dictionary = {}
 
-	    for price in prices:
-	        priceList.append(price.text.strip("Price charged \n"))
+    if numResults == 0:
+        return dictionary
 
-	    for address in addresses:
-	        addressList.append(address.text.strip())
+    parent = soup.find('div', 'ui sixteen wide mobile thirteen wide computer column')
+    child = parent.contents[0]
+    while child.name != 'h3':
+        child = child.next_sibling
+    child = child.next_sibling
 
-	    i = 0
-	    outputDict = {}
-	    option = "option"
-	    while i < len(priceList):
-	    	outputDict[option + str(i+1)] = [addressList[i], priceList[i]]
-	    	i +=1
+    while len(parent.contents) > 0:
 
-	    return outputDict
+        if child.name == 'h4':
 
+            name = child.getText()
+            locations = []
+            child = child.next_sibling
 
-	else:
-	    return "Sorry, there were no reported results for prices in our database."
+            while child is not None and child.name != 'h4':
 
+                if isinstance(child, NavigableString):
+                    child = child.next_sibling
+                    continue
 
-print(scrape("blood test", 91125, 5 ))
+                latitude = child.find('meta', {'itemprop': 'latitude'})['content']
+                longitude = child.find('meta', {'itemprop': 'longitude'})['content']
+                youPay = child.find('div', 'price-badge price-paid').contents[3].getText()
+
+                locations.append({
+                    'latitude': latitude,
+                    'longitude': longitude,
+                    'youPay': youPay
+                })
+
+                child = child.next_sibling
+
+            dictionary[name] = locations
+        if child is None:
+            break
+        else:
+            child = child.next_sibling
+	
+    return dictionary
