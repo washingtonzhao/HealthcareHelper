@@ -3,19 +3,19 @@
 <link rel="stylesheet" type="text/css" href = "./format.css" media="all">
 <body>
 <div class="container">
-  <form id="contact" action="http://127.0.0.1:5000/scraper" method="post">
+  <form id="contact" action="http://127.0.0.1:5000/scraper">
     <center><h3>Medical Service Locator</h3></center>
     <fieldset>
-      <input placeholder="Query" type="text" value="blood test" tabindex="1" required autofocus>
+      <input name="query" placeholder="Query" type="text" value="blood test" tabindex="1" required autofocus>
     </fieldset>
     <fieldset>
-      <input placeholder="Zipcode" type="text" value="91125" tabindex="2" required>
+      <input name="zipcode" placeholder="Zipcode" type="text" value="91125" tabindex="2" required>
     </fieldset>
     <fieldset>
-      <input placeholder="Radius" type="text" value="5" tabindex="3" required>
+      <input name="radius" placeholder="Radius" type="text" value="5" tabindex="3" required>
     </fieldset>
     <fieldset>
-      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending" value="Submit">Submit</button>
     </fieldset>
   </form>
 </div>
