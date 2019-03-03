@@ -15,7 +15,6 @@ def getCoords(address):
 		
 	return [coordinates["lat"], coordinates["lng"]]
 
-print(getCoords("1600+Amphitheatre+Parkway,+Mountain+View,+CA"))
 
 
 
