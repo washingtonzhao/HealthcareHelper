@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import urllib3
 import certifi
 
-def scraper(searchQuery, zipCode, radius):
+def scrape(searchQuery, zipCode, radius):
 	# 	query = request.form["query"]
 	# 	zipcode = request.form["zipcode"]
 	# 	searchRadius = request.form["searchRadius"]
@@ -67,4 +67,4 @@ def scraper(searchQuery, zipCode, radius):
 	    return "Sorry, there were no reported results for prices in our database."
 
 
-print(scraper("blood test", 91125, 5 ))
+print(scrape("blood test", 91125, 5 ))
