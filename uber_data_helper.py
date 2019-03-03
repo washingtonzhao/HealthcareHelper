@@ -1,4 +1,4 @@
-def getData(end_la, end_lo, type):
+def getData(end_la, end_lo):
 	import json
 	from uber_rides.session import Session
 	from uber_rides.client import UberRidesClient
@@ -18,7 +18,7 @@ def getData(end_la, end_lo, type):
 	cost = estimate[4]["estimate"]
 	rideDuration = estimate[4]["duration"]//60
 
-	out = {"cost": cost, "rideDuration": rideDuration, "type": type}
+	out = {"cost": cost, "rideDuration": rideDuration}
 
 	return out
 
