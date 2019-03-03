@@ -75,5 +75,3 @@ def scrape(searchQuery, zipCode, radius):
 
 	else:
 	    return "Sorry, there were no reported results in our database."
-
-scrape("blood test", 91125, 5)
