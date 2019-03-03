@@ -43,20 +43,49 @@
 
     <script>  
 
-
 function initMap() {
   var myLatLng = {lat: 34.1377, lng: -118.1253};
-  var oak = {lat: 34.1428322, lng: -118.1349039}
+  var verd = {lat: 34.2050166, lng: -118.2154268}
+  var sam = {lat: 34.0542121, lng: -118.2658386}
+  var keck = {lat: 34.0463904, lng: -118.2605215}
+  var quest = {lat: 34.1367722, lng: -118.2404189}
+  var quest2 = {lat: 34.0466808, lng: -118.2419722}
+
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
     center: myLatLng
   });
 
   var marker = new google.maps.Marker({
-    position: oak,
+    position: verd,
     map: map,
     title: 'Hello World!'
   });
+
+  var marker2 = new google.maps.Marker({
+    position: sam,
+    map: map,
+    title: 'fuck u!'
+});
+
+    var marker3 = new google.maps.Marker({
+    position: keck,
+    map: map,
+    title: 'fuck u!'
+});
+
+var marker4 = new google.maps.Marker({
+    position: quest,
+    map: map,
+    title: 'fuck u!'
+});
+
+var marker5 = new google.maps.Marker({
+    position: quest2,
+    map: map,
+    title: 'fuck u!'
+});
+
 }
 </script>
     <script>

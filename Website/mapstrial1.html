@@ -43,20 +43,27 @@
 
     <script>  
 
-
 function initMap() {
   var myLatLng = {lat: 34.1377, lng: -118.1253};
   var oak = {lat: 34.1428322, lng: -118.1349039}
+  var madison = {lat: 34.14707569999999, lng: -118.1386534}
+
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
     center: myLatLng
   });
 
   var marker = new google.maps.Marker({
-    position: oak,
+    position: myLatLng,
     map: map,
     title: 'Hello World!'
   });
+
+  var marker2 = new google.maps.Marker({
+    position: madison,
+    map: map,
+    title: 'fuck u!'
+});
 }
 </script>
     <script>
