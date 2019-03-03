@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 	<html lang="en">
 	<head>
 		<title>Login V2</title>
@@ -31,7 +31,21 @@
 	<!--===============================================================================================-->
 	</head>
 	<body>
-		
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({
+					appId            : '354596178482626',
+					autoLogAppEvents : true,
+					xfbml            : true,
+					version          : 'v3.2'
+				});
+			};
+		</script>
+		<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+		<div id="fb-root"></div>
+		<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=354596178482626&autoLogAppEvents=1"></script>
+
 		<div class="limiter">
 			<div class="container-login100">
 				<div class="wrap-login100">
@@ -62,7 +76,47 @@
 							</div>
 						</div>
 							<div class="w3-container">
-												
+								<p>
+									<br>
+									<center>
+									<div class="fb-login-button" data-size="large" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
+								</p>
+								<p2>
+									<br>
+									<center>
+										<div id="my-signin2"></div>
+								  	<script>
+									    function onSuccess(googleUser) {
+									      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+												var profile = googleUser.getBasicProfile();
+								        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+								        console.log('Full Name: ' + profile.getName());
+								        console.log('Given Name: ' + profile.getGivenName());
+								        console.log('Family Name: ' + profile.getFamilyName());
+								        console.log("Image URL: " + profile.getImageUrl());
+								        console.log("Email: " + profile.getEmail());
+								        // The ID token you need to pass to your backend:
+								        var id_token = googleUser.getAuthResponse().id_token;
+								        console.log("ID Token: " + id_token);
+									    }
+									    function onFailure(error) {
+									      console.log(error);
+									    }
+									    function renderButton() {
+									      gapi.signin2.render('my-signin2', {
+									        'scope': 'profile email',
+									        'width': 240,
+									        'height': 50,
+									        'longtitle': true,
+									        'theme': 'dark',
+									        'onsuccess': onSuccess,
+									        'onfailure': onFailure
+									      });
+									    }
+									  </script>
+								  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+									</center>
+								</p2>
 								<p3>
 									<br>
 									<div id="my-login-button-target" />
@@ -82,7 +136,6 @@
 							          },
 							        });
 							      };
-
 							      (function (d, s, id) {
 							        var js, sjs = d.getElementsByTagName(s)[0];
 							        if (d.getElementById(id)) return;
@@ -98,7 +151,6 @@
 							<span class="txt1">
 								Don’t have an account?
 							</span>
-
 							<a class="txt2" href="#">
 								Sign Up
 							</a>
